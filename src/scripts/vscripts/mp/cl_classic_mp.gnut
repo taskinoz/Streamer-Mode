@@ -1,0 +1,513 @@
+global function ClClassicMp_Init
+
+global function ServerCallback_SetClassicSkyScale
+global function ServerCallback_ResetClassicSkyScale
+global function ClassicMP_AddClient
+global function ClassicMP_Client_GetGameStateThinkFunc_PickLoadOut
+global function ClassicMP_Client_GetGameStateEnterFunc_PickLoadOut
+global function ClassicMP_Client_SetGameStateThinkFunc_PickLoadOut
+global function ClassicMP_Client_SetGameStateEnterFunc_PickLoadOut
+global function ClassicMP_Client_GetGameStateEnterFunc_WaitingForPlayers
+global function ClassicMP_Client_SetGameStateEnterFunc_WaitingForPlayers
+global function RefreshIntroLoadoutDisplay
+
+global function ClassicMP_DefaultCreateJumpInRui
+global function ClassicMP_SetJumpInRuiText
+
+global function UseDoubleXP
+
+const DROPSHIP_HERO_MODEL = $"models/vehicle/goblin_dropship/goblin_dropship_hero.mdl"
+const CROW_HERO_MODEL = $"models/vehicle/crow_dropship/crow_dropship_hero.mdl"
+
+const CLASSIC_MP_COUNTDOWN_TIME = 6
+
+struct
+{
+	var introJumpingRUI = null
+	var countdownRUI = null
+	var loadoutsRUI = null
+
+	void functionref( entity ) classicMP_Client_GameStateEnterFunc_PickLoadOut = null
+	void functionref( entity ) classicMP_Client_GameStateThinkFunc_PickLoadOut = null
+	void functionref( entity ) classicMP_Client_GameStateEnterFunc_WaitingForPlayers = null
+} file
+
+void function ClClassicMp_Init()
+{
+	RegisterServerVarChangeCallback( "gameStartTime", StartPlayerCountdown )
+	RegisterSignal( "DropShipStream" )
+}
+
+void function ClassicMP_AddClient()
+{
+	if ( !IsMultiplayerPlaylist() )
+		return
+
+	entity player = GetLocalClientPlayer()
+
+	//thread RegisterClassicMPMusic()
+
+	//Hard code lengths for classic MP. Make sure they are the same for IMC and Militia!
+	CinematicIntroScreen_SetClassicMPIntro( TEAM_IMC )
+	CinematicIntroScreen_SetClassicMPIntro( TEAM_MILITIA )
+
+	if ( ClassicMP_ShouldDoDefaultIntro() )
+		ClassicMP_Client_DropshipIntroSetup()
+}
+
+void function DropShipStream()
+{
+	entity player = GetLocalClientPlayer()
+
+	asset modelName
+	if ( player.GetTeam() == TEAM_IMC )
+		modelName = DROPSHIP_HERO_MODEL
+	else if ( player.GetTeam() == TEAM_MILITIA )
+		modelName = CROW_HERO_MODEL
+
+	entity dropshipModel = CreateClientSidePropDynamic( player.GetOrigin(), <0, 0, 0>, modelName )
+
+	player.EndSignal( "DropShipStream" )
+
+	OnThreadEnd(
+		function() : ( dropshipModel )
+		{
+			dropshipModel.Destroy()
+		}
+	)
+
+	while ( true )
+	{
+		player = GetLocalClientPlayer()
+		dropshipModel.SetOrigin( player.GetOrigin() )
+		WaitFrame()
+	}
+}
+
+void function ClassicMP_Client_DropshipIntroSetup()
+{
+	ClassicMP_Client_SetGameStateEnterFunc_WaitingForPlayers( ClassicMP_DefaultCreateJumpInRui )
+	ClassicMP_Client_SetGameStateEnterFunc_PickLoadOut( ClassicMP_Dropship_GameStateEnterFunc_PickLoadOut )
+}
+
+// gamestate ENTER
+void function ClassicMP_Dropship_GameStateEnterFunc_PickLoadOut( entity player )
+{
+	ClassicMP_DefaultCreateJumpInRui( player )
+	HidePermanentCockpitRui()
+
+	if ( GameRules_GetGameMode() != LAST_TITAN_STANDING ||
+		GameRules_GetGameMode() != TITAN_BRAWL ||
+		GameRules_GetGameMode() != WINGMAN_LAST_TITAN_STANDING ||
+		GameRules_GetGameMode() != LTS_BOMB )  						// sounds weird to play the dropship SFX before seeing the Titan drop in
+		thread ClassicMP_Dropship_GameStateEnter_PickLoadOutSFX()
+}
+
+void function ClassicMP_DefaultCreateJumpInRui( entity player ) //Takes a player argument it doesn't do anything with just so it can be used as a gamestate enter function
+{
+	if ( file.introJumpingRUI == null )
+	{
+		file.introJumpingRUI = RuiCreate( $"ui/dropship_intro_jumping.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 1001 )
+		RuiSetResolutionToScreenSize( file.introJumpingRUI )
+	}
+}
+
+void function ClassicMP_SetJumpInRuiText( string value )
+{
+	if ( file.introJumpingRUI != null )
+		RuiSetString( file.introJumpingRUI, "introMessage", value )
+}
+
+void function ClassicMP_Dropship_GameStateEnter_PickLoadOutSFX()
+{
+	thread DropShipStream()
+
+	OnThreadEnd(
+	function() : (  )
+		{
+			GetLocalClientPlayer().Signal( "DropShipStream" )
+		}
+	)
+
+	while ( level.nv.minPickLoadOutTime == null )
+	{
+		WaitFrame()
+
+		//defensive check recommended by mackey
+		if ( GetGameState() != eGameState.PickLoadout )
+		{
+			return
+		}
+	}
+
+	if ( !DoPrematchWarpSound() )
+		return
+
+	float startTime = expect float( level.nv.minPickLoadOutTime )
+	float soundStartTime = startTime - PICK_LOADOUT_SOUND_TIME
+
+	while ( Time() < soundStartTime )
+	{
+		wait soundStartTime - Time()
+		startTime = expect float( level.nv.minPickLoadOutTime )
+		soundStartTime = startTime - PICK_LOADOUT_SOUND_TIME
+	}
+
+	float seekTime = PICK_LOADOUT_SOUND_TIME - ( startTime - Time() )
+
+	if ( seekTime < 0.2 )
+		seekTime = 0.0
+	else if ( seekTime > PICK_LOADOUT_SOUND_TIME )
+		seekTime = PICK_LOADOUT_SOUND_TIME
+
+	entity player = GetLocalClientPlayer()
+	float warpJumpSeek = 3.0
+
+	string warpSoundEffect
+	if ( player.GetTeam() == TEAM_IMC ) //i.e. bound to the dropship model. We can't actually check the dropship model here since it's not created yet.
+		warpSoundEffect = "goblin_warpjump"
+	else
+		warpSoundEffect = "classicmp_warpjump"
+
+	EmitSoundOnEntityWithSeek( player, warpSoundEffect, warpJumpSeek + seekTime )
+
+	float delay = PICK_LOADOUT_SOUND_TIME - seekTime
+	if ( delay > 0.0 )
+		wait delay
+
+	player = GetLocalClientPlayer() //Need to update the handle since time could have passed
+
+	FadeOutSoundOnEntity( player, warpSoundEffect, 2.0 )
+}
+
+void function StartPlayerCountdown() //TODO: Note that this runs by default regardless of whether or not we use dropship intro. Should split this out better: right now it also does  "Use double XP" prompt, the faction leader hud elements, etc.
+{
+	if ( !IsMultiplayerPlaylist() )
+		return
+
+	entity player = GetLocalClientPlayer()
+
+	if ( GetGameState() != eGameState.Prematch )
+		return
+
+	if ( !level.nv.gameStartTime )
+		return
+
+	float gameStartTime = expect float( level.nv.gameStartTime )
+
+	if ( file.introJumpingRUI != null )
+	{
+		if ( GetCurrentPlaylistVarInt( "gamemode_uses_custom_countdown", 0 ) > 0 )
+		{
+			RuiDestroyIfAlive( file.introJumpingRUI )
+		}
+		else
+		{
+			//RuiSetImage( Hud_GetRui( file.teamElems[TEAM_IMC].logo ), "logo", $"rui/hud/scoreboard/logo_imc" )
+			//RuiSetImage( Hud_GetRui( file.teamElems[TEAM_MILITIA].logo ), "logo", $"rui/hud/scoreboard/logo_mcorp" )
+			asset factionLogo
+			string factionTitle
+
+			if ( IsFactionLeaderOverriden() )
+			{
+				OverrideFactionLeaderStruct overriddenFactionLeaderData = GetOverrideFactionLeader()
+				factionLogo = overriddenFactionLeaderData.factionLogo
+				factionTitle = overriddenFactionLeaderData.factionName
+			}
+			else
+			{
+				string factionChoice = GetFactionChoice( player )
+				ItemDisplayData displayData = GetItemDisplayData( factionChoice )
+				factionLogo = displayData.image
+				factionTitle = displayData.name
+			}
+
+			RuiSetGameTime( file.introJumpingRUI, "fadeStartTime", Time() )
+			RuiSetGameTime( file.introJumpingRUI, "gameStartTime", gameStartTime )
+			RuiSetString( file.introJumpingRUI, "factionTitle", Localize( factionTitle ) )
+			RuiSetImage( file.introJumpingRUI, "factionImage", factionLogo )
+		}
+	}
+
+	thread CreateCountdown( player, gameStartTime )
+}
+
+void function UseDoubleXP( ... )
+{
+	if ( HudChat_HasAnyMessageModeStoppedRecently() )
+		return
+
+	entity player = GetLocalClientPlayer()
+
+	if ( Player_GetDoubleXPCount( player ) < 1 )
+		return
+
+	if ( player.GetPlayerNetInt( "xpMultiplier" ) > 0 )
+		return
+
+	player.ClientCommand( "UseDoubleXP" )
+}
+
+void function OpenBoostMenu( ... )
+{
+	RunUIScript( "OpenBoostMenu" )
+}
+
+void function CreateCountdown( entity player, float gameStartTime )
+{
+	HidePermanentCockpitRui()
+
+	if ( IsPrivateMatchSpectator( player ) )
+	{
+		int lastSecond = -1
+		while ( Time() < gameStartTime )
+		{
+			int second = int( floor( gameStartTime - Time() ) )
+			if ( lastSecond == -1 )
+			{
+				lastSecond = second
+			}
+			else if ( second != lastSecond && second < 15 )
+			{
+				if ( second >= 5 )
+				{
+					EmitSoundOnEntity( GetLocalClientPlayer(), "HUD_match_start_timer_tick_1P" )
+				}
+				else if ( second >= 0 )
+				{
+					EmitSoundOnEntity( GetLocalClientPlayer(), "HUD_match_start_timer_5_seconds_1P" )
+				}
+			}
+
+			lastSecond = second
+
+			WaitFrame()
+		}
+
+		EmitSoundOnEntity( GetLocalClientPlayer(), "HUD_match_start_timer_0_seconds_1P" )
+
+		wait 1.0
+
+		ShowPermanentCockpitRui()
+		return
+	}
+
+	if ( GetRoundsPlayed() == 0 )
+	{
+		RegisterButtonPressedCallback( BUTTON_Y, UseDoubleXP )
+		RegisterButtonPressedCallback( KEY_ENTER, UseDoubleXP )
+	}
+
+	if ( BurnMeterEnabled() )
+	{
+		RegisterButtonPressedCallback( BUTTON_X, OpenBoostMenu )
+		RegisterButtonPressedCallback( KEY_SPACE, OpenBoostMenu )
+	}
+
+	file.countdownRUI = RuiCreate( $"ui/dropship_intro_countdown.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 1 )
+	RuiSetResolutionToScreenSize( file.countdownRUI )
+	RuiSetGameTime( file.countdownRUI, "gameStartTime", gameStartTime )
+
+	if ( Riff_TitanAvailability() == eTitanAvailability.Never )
+	{
+		if ( !BurnMeterEnabled() )
+			file.loadoutsRUI = null //RuiCreate( $"ui/dropship_intro_coliseum_loadouts.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 1 )
+		else
+			file.loadoutsRUI = RuiCreate( $"ui/dropship_intro_pilot_loadouts.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 1 )
+	}
+	else if ( Riff_TitanAvailability() == eTitanAvailability.Once )
+	{
+		file.loadoutsRUI = RuiCreate( $"ui/dropship_intro_titan_loadouts.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 1 )
+	}
+	else
+	{
+		file.loadoutsRUI = RuiCreate( $"ui/dropship_intro_loadouts.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 1 )
+	}
+
+	if ( file.loadoutsRUI )
+	{
+		RuiSetGameTime( file.loadoutsRUI, "gameStartTime", gameStartTime )
+		RuiSetResolutionToScreenSize( file.loadoutsRUI )
+	}
+
+	RefreshIntroLoadoutDisplay( player, GetPersistentSpawnLoadoutIndex( player, "pilot" ), GetPersistentSpawnLoadoutIndex( player, "titan" ) )
+
+	int lastSecond = -1
+	while ( Time() < gameStartTime )
+	{
+		entity clientPlayer = GetLocalClientPlayer()
+		RefreshIntroLoadoutDisplay( clientPlayer, GetPersistentSpawnLoadoutIndex( clientPlayer, "pilot" ), GetPersistentSpawnLoadoutIndex( clientPlayer, "titan" ) )
+		int second = int( floor( gameStartTime - Time() ) )
+		if ( lastSecond == -1 )
+		{
+			lastSecond = second
+		}
+		else if ( second != lastSecond && second < 15 )
+		{
+			if ( second >= 5 )
+			{
+				EmitSoundOnEntity( clientPlayer, "HUD_match_start_timer_tick_1P" )
+			}
+			else if ( second >= 0 )
+			{
+				EmitSoundOnEntity( clientPlayer, "HUD_match_start_timer_5_seconds_1P" )
+			}
+		}
+
+		lastSecond = second
+
+		WaitFrame()
+	}
+
+	EmitSoundOnEntity( GetLocalClientPlayer(), "HUD_match_start_timer_0_seconds_1P" )
+
+	if ( file.introJumpingRUI != null )
+		RuiDestroyIfAlive( file.introJumpingRUI )
+
+	RuiDestroy( file.countdownRUI )
+
+	if ( file.loadoutsRUI != null )
+		RuiDestroy( file.loadoutsRUI )
+
+	if ( GetRoundsPlayed() == 0 )
+	{
+		DeregisterButtonPressedCallback( BUTTON_Y, UseDoubleXP )
+		DeregisterButtonPressedCallback( KEY_ENTER, UseDoubleXP )
+	}
+
+	if ( BurnMeterEnabled() )
+	{
+		DeregisterButtonPressedCallback( BUTTON_X, OpenBoostMenu )
+		DeregisterButtonPressedCallback( KEY_SPACE, OpenBoostMenu )
+	}
+
+	ShowPermanentCockpitRui()
+
+	file.introJumpingRUI = null
+	file.countdownRUI = null
+	file.loadoutsRUI = null
+}
+
+
+void function RefreshIntroLoadoutDisplay( entity player, int pilotLoadoutIndex, int titanLoadoutIndex )
+{
+	if ( file.loadoutsRUI == null )
+		return
+
+	string pilotLoadoutName = expect string ( player.GetPersistentVar( "pilotLoadouts[" + pilotLoadoutIndex + "].name" ) )
+	string titanLoadoutName = expect string ( player.GetPersistentVar( "titanLoadouts[" + titanLoadoutIndex + "].name" ) )
+
+	RuiSetString( file.loadoutsRUI, "pilotLoadoutName", pilotLoadoutName )
+	RuiSetString( file.loadoutsRUI, "titanLoadoutName", titanLoadoutName  )
+	if ( BurnMeterEnabled() )
+	{
+		RuiSetFloat( file.loadoutsRUI, "burnCardAlpha", 1.0 )
+		BurnReward burnCard = BurnReward_GetByRef( GetSelectedBurnCardRef( player ) )
+		RuiSetString( file.loadoutsRUI, "burnCard", burnCard.localizedName )
+		RuiSetImage( file.loadoutsRUI, "burnCardImage", burnCard.image )
+	}
+	else
+	{
+		RuiSetFloat( file.loadoutsRUI, "burnCardAlpha", 0.0 )
+	}
+
+	RuiSetString( file.loadoutsRUI, "playerName", "Unknown" )
+	RuiSetImage( file.loadoutsRUI, "cardImage", CallingCard_GetImage( PlayerCallingCard_GetActive( player ) ) )
+	RuiSetImage( file.loadoutsRUI, "iconImage", CallsignIcon_GetImage( PlayerCallsignIcon_GetActive( player ) ) )
+	RuiSetInt( file.loadoutsRUI, "layoutType", CallingCard_GetLayout( PlayerCallingCard_GetActive( player ) ) )
+	RuiSetImage( file.loadoutsRUI, "cardGenImage", PlayerXPGetGenIcon( player ) )
+	RuiSetString( file.loadoutsRUI, "playerLevel", PlayerXPDisplayGenAndLevel( player.GetGen(), player.GetLevel() ) )
+
+	PilotLoadoutDef pilotLoadout = GetPilotLoadoutFromPersistentData( player, pilotLoadoutIndex )
+	TitanLoadoutDef titanLoadout = GetTitanLoadoutFromPersistentData( player, titanLoadoutIndex )
+
+	asset weaponImage = GetWeaponInfoFileKeyFieldAsset_Global( pilotLoadout.primary, "hud_icon" )
+	asset tacticalImage = GetWeaponInfoFileKeyFieldAsset_Global( pilotLoadout.special, "hud_icon" )
+
+	RuiSetImage( file.loadoutsRUI, "weaponImage", weaponImage )
+	RuiSetImage( file.loadoutsRUI, "tacticalImage", tacticalImage )
+
+	asset titanImage = GetItemImage( titanLoadout.titanClass )
+	RuiSetImage( file.loadoutsRUI, "titanImage", titanImage )
+
+	asset burnCard1Image = GetWeaponInfoFileKeyFieldAsset_Global( "mp_ability_burncardweapon", "hud_icon" )
+
+	bool firstRound = ( GetRoundsPlayed() == 0 )
+
+	RuiSetBool( file.loadoutsRUI, "doubleXPAvailable", (Player_GetDoubleXPCount( player ) > 0 || player.GetPlayerNetInt( "xpMultiplier" ) > 0) && !IsPrivateMatch() && firstRound )
+	RuiTrackInt( file.loadoutsRUI, "doubleXPStatus", player, RUI_TRACK_SCRIPT_NETWORK_VAR_INT, GetNetworkedVariableIndex( "xpMultiplier" ) )
+
+	RuiSetInt( file.loadoutsRUI, "doubleXPCount", Player_GetDoubleXPCount( player ) )
+}
+
+void function ServerCallback_SetClassicSkyScale( int handle, float scale )
+{
+	entity ref = GetEntityFromEncodedEHandle( handle )
+	if ( !IsValid( ref ) )
+		return
+	ref.LerpSkyScale( scale, 0.1 )
+}
+
+void function ServerCallback_ResetClassicSkyScale( int handle )
+{
+	entity ref = GetEntityFromEncodedEHandle( handle )
+	if ( !IsValid( ref ) )
+		return
+	ref.LerpSkyScale( SKYSCALE_DEFAULT, 1.0 )
+}
+
+// ========== CLASSIC MP INTRO CALLBACKS ==========
+// "think" funcs happen every tick during the game state
+void functionref( entity ) function ClassicMP_Client_GetGameStateThinkFunc_PickLoadOut()
+{
+	Assert( IsMultiplayerPlaylist() )
+
+	return file.classicMP_Client_GameStateThinkFunc_PickLoadOut
+}
+
+//"enter" funcs only happen once upon entering that gamestate
+void functionref( entity ) function ClassicMP_Client_GetGameStateEnterFunc_PickLoadOut()
+{
+	Assert( IsMultiplayerPlaylist() )
+
+	return file.classicMP_Client_GameStateEnterFunc_PickLoadOut
+}
+
+void function ClassicMP_Client_SetGameStateThinkFunc_PickLoadOut( void functionref( entity )func )
+{
+	Assert( IsMultiplayerPlaylist() )
+
+	file.classicMP_Client_GameStateThinkFunc_PickLoadOut = func
+}
+
+void function ClassicMP_Client_SetGameStateEnterFunc_PickLoadOut( void functionref( entity ) func )
+{
+	Assert( IsMultiplayerPlaylist() )
+
+	file.classicMP_Client_GameStateEnterFunc_PickLoadOut = func
+}
+
+bool function ClassicMP_ShouldDoDefaultIntro()
+{
+	if ( file.classicMP_Client_GameStateThinkFunc_PickLoadOut != null )
+		return false
+
+	if ( file.classicMP_Client_GameStateEnterFunc_PickLoadOut != null )
+		return false
+
+	return true
+}
+
+void function ClassicMP_Client_SetGameStateEnterFunc_WaitingForPlayers( void functionref( entity ) func )
+{
+	Assert( IsMultiplayerPlaylist() )
+
+	file.classicMP_Client_GameStateEnterFunc_WaitingForPlayers = func
+}
+
+void functionref( entity ) function ClassicMP_Client_GetGameStateEnterFunc_WaitingForPlayers()
+{
+	Assert( IsMultiplayerPlaylist() )
+
+	return file.classicMP_Client_GameStateEnterFunc_WaitingForPlayers
+}
