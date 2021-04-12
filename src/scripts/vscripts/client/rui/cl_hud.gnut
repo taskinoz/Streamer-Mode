@@ -280,7 +280,7 @@ void function KilledByCallsignEvent( entity attacker )
 
 	CallsignEventData callsignEventData
 	callsignEventData.eventText = Localize( "#CALLSIGN_EVENT_KILLED_BY" )
-	callsignEventData.playerText = attacker.GetPlayerName()
+	callsignEventData.playerText = "Unknown"
 	callsignEventData.playerLevel = PlayerXPDisplayGenAndLevel( attacker.GetGen(), attacker.GetLevel() )
 	callsignEventData.playerGen = attacker.GetGen()
 	callsignEventData.isFriendly = false
@@ -332,7 +332,7 @@ void function CallsignEventQueueThink( int eventType )
 		var rui = CreateCockpitRui( CALLSIGN_EVENT_ASSETS[eventType] )
 		RuiSetGameTime( rui, "startTime", Time() )
 		RuiSetGameTime( rui, "endTime", eventData.endTime )
-		RuiSetString( rui, "playerName", eventData.playerText )
+		RuiSetString( rui, "playerName", "Unknown" )
 		RuiSetString( rui, "playerLevel", eventData.playerLevel )
 		RuiSetString( rui, "eventText", eventData.eventText )
 		RuiSetImage( rui, "cardImage", CallingCard_GetImage( eventData.callingCard ) )
