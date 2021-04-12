@@ -369,7 +369,7 @@ void function CallsignEventStackThink( int eventType )
 		//var rui = RuiCreate( CALLSIGN_EVENT_ASSETS[eventType], clGlobal.topoFullScreen, RUI_DRAW_HUD, 0 )
 		RuiSetGameTime( rui, "startTime", Time() )
 		RuiSetGameTime( rui, "endTime", eventData.endTime )
-		RuiSetString( rui, "playerName", eventData.playerText )
+		RuiSetString( rui, "playerName", "Unknown" )
 		RuiSetString( rui, "playerLevel", eventData.playerLevel )
 		RuiSetString( rui, "eventText", eventData.eventText )
 		RuiSetImage( rui, "cardImage", CallingCard_GetImage( eventData.callingCard ) )
@@ -1013,7 +1013,7 @@ string function GetFormattedEventText( ScoreEvent scoreEvent, int pointValue, en
 
 	if ( IsValid( targetEntity ) && Localize( eventText ).find( "%s" ) != null )
 	{
-		string targetEntityText = targetEntity.IsPlayer() ? targetEntity.GetPlayerName() : targetEntity.GetBossPlayerName()
+		string targetEntityText = targetEntity.IsPlayer() ? "Unknown" : targetEntity.GetBossPlayerName()
 		eventText = Localize( eventText, targetEntityText )
 	}
 

@@ -99,7 +99,7 @@ void function EventNotification( int eventID, entity ent, var eventVal )
 
 			entity clientPlayer = GetLocalClientPlayer()
 			bool friendlyDeath = ent.GetTeam() == clientPlayer.GetTeam()
-			string msg = GetMarkedName( attacker ) + " " + Localize( "#DEATH_GENERIC_KILLED_LOWER_CASE" ) + " " +  GetMarkedName( ent )
+			string msg = "Pilot" + " " + Localize( "#DEATH_GENERIC_KILLED_LOWER_CASE" ) + " " +  "Mark"
 			if ( friendlyDeath )
 				AnnouncementMessageSweep( GetLocalClientPlayer(), "#MARKED_FOR_DEATH_MARK_ELIMINATED" , msg, TEAM_COLOR_ENEMY )
 			else
