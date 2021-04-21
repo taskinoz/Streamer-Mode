@@ -688,12 +688,12 @@ function DidUpdateRodeoRideNameAndIcon( entity cockpit, entity player, var rui )
 string function GetTitanName( entity titan )
 {
 	if ( titan.IsPlayer() )
-		return titan.GetPlayerName()
+		return "Unknown Titan"
 
 	if ( IsValid( titan.GetBossPlayer() ) )
-		return titan.GetBossPlayerName()
+		return "Unknown Titan"
 
-	return titan.GetTitleForUI()
+	return "Titan"
 }
 
 function TitanBuildBarThink( entity cockpit, entity player )
