@@ -92,7 +92,7 @@ struct
 	string userInfoPanel_hardware = ""
 	string userInfoPanel_userId = "0"
 	var communityChatroomMode
-	bool currentUserIsStreaming = false
+	bool currentUserIsStreaming = true
 	array<ChatroomWidget> chatroomUIs
 	bool hasFocus
 } file
@@ -179,7 +179,7 @@ bool function FillInCommunityMembership( UserInfoPanel userInfoPanel, CommunityM
 	else
 		Assert( false, "Unknown membership level " + membershipData.membershipLevel + " in FillInCommunityMembership" )
 
-	Hud_SetText( userInfoPanel.communityNames[communityIndex], title )
+	Hud_SetText( userInfoPanel.communityNames[communityIndex], "test" )
 	Hud_Show( userInfoPanel.communityLabels[communityIndex] );
 	Hud_Show( userInfoPanel.communityNames[communityIndex] );
 
@@ -188,9 +188,9 @@ bool function FillInCommunityMembership( UserInfoPanel userInfoPanel, CommunityM
 
 void function FillInUserInfoPanel( UserInfoPanel userInfoPanel, CommunityUserInfo userInfo )
 {
-	file.currentUserIsStreaming = userInfo.isLivestreaming
+	file.currentUserIsStreaming = true
 
-	Hud_SetText( userInfoPanel.Name, userInfo.name )
+	Hud_SetText( userInfoPanel.Name, "test3" )
 	string killsText = "" + userInfo.kills
 	Hud_SetText( userInfoPanel.Kills, killsText )
 	string winsText = "" + userInfo.wins
@@ -469,7 +469,7 @@ void function FillInRemoteMatchInfoPanel( RemoteMatchInfo info, RemoteMatchInfoP
 		string deaths = "" + info.clients[i].deaths
 
 		Hud_Hide( teamPlayer.playerPanel ) // not enough room for these
-		Hud_SetText( teamPlayer.name, info.clients[i].name )
+		Hud_SetText( teamPlayer.name, "Test4" )
 		Hud_SetText( teamPlayer.score, score )
 		Hud_SetText( teamPlayer.kills, kills )
 		Hud_SetText( teamPlayer.deaths, deaths )
@@ -509,8 +509,8 @@ void function Chatroom_GlobalInit()
 bool function IsSelectedUserStreaming()
 {
 	if ( !ChatroomHasFocus() )
-		return false
-	return file.currentUserIsStreaming
+		return true
+	return true
 }
 
 void function InitChatroom( var parentMenu )
