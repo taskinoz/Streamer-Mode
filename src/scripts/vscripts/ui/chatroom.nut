@@ -107,7 +107,7 @@ bool function IsVoiceChatPushToTalk()
 void function UICodeCallback_SetChatroomMode( string mode )
 {
 	file.communityChatroomMode = mode
-	UpdateChatroomUI()
+	//UpdateChatroomUI()
 }
 
 void function UpdateChatroomUI()
@@ -123,11 +123,11 @@ void function UpdateChatroomUI()
 			if ( communitySettings != null )
 			{
 				expect CommunitySettings( communitySettings )
-				communityName = GetCurrentCommunityName() + " [" +  communitySettings.clanTag + "]"
+				communityName = "Ghost Network" + " [HIDDEN]"
 			}
 			else
 			{
-				communityName = expect string( GetCurrentCommunityName() )
+				communityName = "Ghost Network" + " [HIDDEN]"
 			}
 
 			if ( IsChatroomMuted() )
@@ -168,7 +168,7 @@ bool function FillInCommunityMembership( UserInfoPanel userInfoPanel, CommunityM
 		return false;
 
 	string title
-	title = "[" + membershipData.communityClantag + "] " + Localize( membershipData.communityName );
+	title = "[" + "membershipData.communityClantag" + "] " + Localize( "membershipData.communityName" );
 
 	if ( membershipData.membershipLevel == "owner" )
 		Hud_SetText( userInfoPanel.communityLabels[communityIndex], "#COMMUNITY_MEMBERSHIP_OWNER" )
@@ -607,7 +607,7 @@ void function InitChatroom( var parentMenu )
 	AddMenuFooterOption( parentMenu, BUTTON_SHOULDER_RIGHT, "#COMMUNITY_RB_CHATROOM_VIEWSTREAM", "#COMMUNITY_CHATROOM_VIEWSTREAM", null, IsSelectedUserStreaming )
 	AddMenuFooterOption( parentMenu, BUTTON_X, "#BUTTON_MUTE", "#MOUSE2_MUTE", null, ChatroomHasFocus )
 
-	UpdateChatroomUI()
+	//UpdateChatroomUI()
 
 	Hud_AddEventHandler( chatroomUI.chatroomWidget, UIE_LOSE_FOCUS, LostFocus )
 	Hud_AddEventHandler( chatroomUI.chatroomWidget, UIE_GET_FOCUS, GotFocus )
@@ -896,7 +896,7 @@ void function UpdateChatroomThread()
 	EndSignal( uiGlobal.signalDummy, "OnCloseLobbyMenu" )
 	while ( true )
 	{
-		UpdateChatroomUI()
+		//UpdateChatroomUI()
 		wait 30
 	}
 }
