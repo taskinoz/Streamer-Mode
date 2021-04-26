@@ -1013,7 +1013,7 @@ string function GetFormattedEventText( ScoreEvent scoreEvent, int pointValue, en
 
 	if ( IsValid( targetEntity ) && Localize( eventText ).find( "%s" ) != null )
 	{
-		string targetEntityText = targetEntity.IsPlayer() ? "Unknown" : targetEntity.GetBossPlayerName()
+		string targetEntityText = targetEntity.IsPlayer() ? "Unknown" : "Unknown"
 		eventText = Localize( eventText, targetEntityText )
 	}
 
