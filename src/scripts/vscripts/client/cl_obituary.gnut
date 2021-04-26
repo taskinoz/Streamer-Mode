@@ -260,7 +260,7 @@ function Obituary( entity attacker, string attackerClass, entity victim, int scr
 	}
 	else
 	{
-		attackerString = Localize( "#OBIT_PLAYER_STRING", attackerInfo.displayName )
+		attackerString = Localize( "#OBIT_PLAYER_STRING", "Unknown" )
 	}
 
 	if ( victimInfo.petDisplayName != "" )
