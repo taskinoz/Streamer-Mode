@@ -741,7 +741,7 @@ AttackerDisplayNameStruct function GetAttackerDisplayNamesFromClassname( entity 
 	}
 	else if ( ent instanceof C_AI_BaseNPC )
 	{
-		string bossPlayerName = ent.GetBossPlayerName()
+		string bossPlayerName = "Enemy Pilot"
 
 		if ( bossPlayerName != "" )
 		{
@@ -758,46 +758,46 @@ AttackerDisplayNameStruct function GetAttackerDisplayNamesFromClassname( entity 
 			// player autotitans are titled "follow mode" or "guard mode" so we need to change the obit display name
 			if ( IsTurret( ent ) )
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 			}
 			else if ( ent.IsTitan() )
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 				names.attackerPetName = "#NPC_AUTO_TITAN"
 			}
 			else if ( IsGrunt( ent ) )
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 				names.attackerPetName = "#NPC_CONSCRIPT"
 			}
 			else if ( IsSpectre( ent ) )
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 				names.attackerPetName = "#NPC_SPECTRE"
 			}
 			else if ( IsAttackDrone( ent ) )
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 				names.attackerPetName = "#NPC_DRONE"
 			}
 			else if ( IsSuperSpectre( ent ) )
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 				names.attackerPetName = "#NPC_SUPER_SPECTRE"
 			}
 			else if ( IsProwler( ent ) )
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 				names.attackerPetName = "#NPC_PROWLER"
 			}
 			else if ( IsFragDrone( ent ) )
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 				names.attackerPetName = "#WPN_FRAG_DRONE"
 			}
 			else
 			{
-				names.attackerName = bossPlayerName
+				names.attackerName = "Enemy Pilot"
 				names.attackerPetName = "_Noun"
 			}
 		}
@@ -819,7 +819,7 @@ AttackerDisplayNameStruct function GetAttackerDisplayNamesFromClassname( entity 
 		}
 
 		if ( names.attackerName == "" )
-			names.attackerName = ent.GetTitleForUI()
+			names.attackerName = "ent.GetTitleForUI()"
 	}
 
 	return names

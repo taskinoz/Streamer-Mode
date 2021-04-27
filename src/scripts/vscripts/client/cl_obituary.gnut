@@ -71,9 +71,9 @@ void function ServerCallback_SquadLeaderBonus( int playerEHandle )
 		return
 
 	if ( pilot == GetLocalClientPlayer() )
-		Obituary_Print_Generic( "#OBIT_SQUAD_LEADER_BONUS_YOU", "Unknown", TEAM_COLOR_FRIENDLY, <255, 255, 255> )
+		Obituary_Print_Generic( "#OBIT_SQUAD_LEADER_BONUS_YOU", "Pilot", TEAM_COLOR_FRIENDLY, <255, 255, 255> )
 	else
-		Obituary_Print_Generic( "#OBIT_SQUAD_LEADER_BONUS", "Unknown", TEAM_COLOR_FRIENDLY, <255, 255, 255> )
+		Obituary_Print_Generic( "#OBIT_SQUAD_LEADER_BONUS", "Pilot", TEAM_COLOR_FRIENDLY, <255, 255, 255> )
 }
 
 void function ServerCallback_SquadLeaderDoubleXP()
@@ -256,20 +256,20 @@ function Obituary( entity attacker, string attackerClass, entity victim, int scr
 
 	if ( attackerInfo.petDisplayName != "" )
 	{
-		attackerString = Localize( "#OBIT_PLAYER_CONTROLLED_AI_STRING", "Unknown", Localize( attackerInfo.petDisplayName ) )
+		attackerString = Localize( "#OBIT_PLAYER_CONTROLLED_AI_STRING", "Pilot", Localize( attackerInfo.petDisplayName ) )
 	}
 	else
 	{
-		attackerString = Localize( "#OBIT_PLAYER_STRING", "Unknown" )
+		attackerString = Localize( "#OBIT_PLAYER_STRING", "Pilot" )
 	}
 
 	if ( victimInfo.petDisplayName != "" )
 	{
-		victimString = Localize( "#OBIT_PLAYER_CONTROLLED_AI_STRING", victimInfo.displayName, Localize( victimInfo.petDisplayName ) )
+		victimString = Localize( "#OBIT_PLAYER_CONTROLLED_AI_STRING", "Enemy Pilot", Localize( victimInfo.petDisplayName ) )
 	}
 	else
 	{
-		victimString = Localize( "#OBIT_PLAYER_STRING", victimInfo.displayName )
+		victimString = Localize( "#OBIT_PLAYER_STRING", "Enemy Pilot" )
 	}
 
 	string localizedObit = Localize( "#OBIT_ENT_WEAPON_ENT", attackerString, Localize( sourceDisplayName ), victimString )
