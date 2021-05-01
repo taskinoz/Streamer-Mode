@@ -241,7 +241,7 @@ void function Rodeo_PilotAppliedBatteryToYourPetTitan( entity friendlyPilot, var
 	if( !IsValid( petTitan ) )
 		return
 
-	SetTimedEventNotification( 3.0, "#RODEO_PILOT_APPLIED_BATTERY_TO_YOUR_PET_TITAN_ANNOUNCEMENT_SUBTEXT", friendlyPilot.GetPlayerName() )
+	SetTimedEventNotification( 3.0, "#RODEO_PILOT_APPLIED_BATTERY_TO_YOUR_PET_TITAN_ANNOUNCEMENT_SUBTEXT", "Unknown" )
 }
 
 void function Rodeo_YouDroppedABattery( entity ent, var eventVal )
@@ -308,7 +308,7 @@ void function OnBatteryCreated( entity battery )
 	if ( viewPlayer != battery.GetBossPlayer() )
 		return
 
-	//printt( "Battery belongs to this view player: " + viewPlayer.GetPlayerName() )
+	//printt( "Battery belongs to this view player: " + "Unknown" )
 
 	thread PingStolenBatteryIcon( viewPlayer, battery )
 }
@@ -585,7 +585,7 @@ void function TryOfferRodeoBatteryHint_threaded( entity localClientPlayer, entit
 		}
 
 		titanSoul.EndSignal( "OnTitanDeath" )
-		ShowBatteryHint( "#RODEO_TELL_FRIENDLY_YOU_HAVE_BATTERY_HINT", viewTarget.GetPlayerName() )
+		ShowBatteryHint( "#RODEO_TELL_FRIENDLY_YOU_HAVE_BATTERY_HINT", "Unknwon" )
 	}
 	else
 	{
