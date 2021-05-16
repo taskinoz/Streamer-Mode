@@ -5,7 +5,7 @@ Hides player names to avoid stream sniping and server leaks
 
 # Installation
 
-1) Go to the [releases page]() and download the latest version.
+1) Go to the [releases page](https://github.com/taskinoz/Streamer-Mode/releases) and download the latest version.
 2) After downloading, unzip the folder and find the `.vpk` files.
 3) Go to the **vpk** folder inside the Titanfall 2 installation folder and backup the same files that are in the zip.
 4) Copy the files from the zip folder and move them to your **vpk** folder.
