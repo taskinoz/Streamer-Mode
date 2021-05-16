@@ -3,6 +3,15 @@
 # Streamer Mode
 Hides player names to avoid stream sniping and server leaks
 
+# Installation
+
+1) Go to the [releases page]() and download the latest version.
+2) After downloading, unzip the folder and find the `.vpk` files.
+3) Go to the **vpk** folder inside the Titanfall 2 installation folder and backup the same files that are in the zip.
+4) Copy the files from the zip folder and move them to your **vpk** folder.
+5) Launch the game and turn off chat in Settings > Video > Hud options
+
+
 # Issues
 
 - Pilot, Titan, Tick, and Turret health bars are removed as a side effect
