@@ -1950,8 +1950,8 @@ void function InitCommunitiesMenu()
 	var menu = GetMenu( "CommunitiesMenu" )
 	file.menu = menu
 
-	Chatroom_GlobalInit()
-	InitChatroom( menu )
+	//Chatroom_GlobalInit()
+	//InitChatroom( menu )
 
 	InitCommunityKeys()
 
