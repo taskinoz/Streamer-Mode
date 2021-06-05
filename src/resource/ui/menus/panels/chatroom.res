@@ -47,7 +47,7 @@ resource/ui/menus/panels/chatroom.res
 		wide					%28
 		tall					26
 		textAlignment				center
-		visible 				1
+		visible 				0
 		labelText				"#COMMUNITY_CHATROOM_TEXTHINT"
 		font 					Default_27
 		fgcolor_override		"254 184 0 128"
@@ -62,7 +62,7 @@ resource/ui/menus/panels/chatroom.res
 		xpos                    %5
 		wide					%61
 		tall					320
-		visible					1
+		visible					0
 		image 					"ui/menu/lobby/lobby_playlist_back_01"
 		scaleImage				1
 		drawColor               "0 0 0 0"
@@ -75,7 +75,7 @@ resource/ui/menus/panels/chatroom.res
 		xpos					%66
 		ypos                    16
 		tall					280
-		visible					1
+		visible					0
 		rui                     "ui/tf2_vertical_line.rpak"
 		scaleImage				1
 		drawColor				"255 255 255 255"
@@ -107,7 +107,7 @@ resource/ui/menus/panels/chatroom.res
 		ypos					-8
 		wide					600
 		tall					40
-		visible 				1
+		visible 				0
 		font 					Default_27
         rui						"ui/happyhour_label.rpak"
 	}

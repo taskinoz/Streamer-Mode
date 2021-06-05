@@ -179,7 +179,7 @@ void function InitLobbyMenu()
 	AddMenuFooterOption( menu, BUTTON_BACK, "#BACK_BUTTON_POSTGAME_REPORT", "#POSTGAME_REPORT", OpenPostGameMenu, IsPostGameMenuValid )
 	AddMenuFooterOption( menu, BUTTON_TRIGGER_RIGHT, "#R_TRIGGER_CHAT", "", null, IsVoiceChatPushToTalk )
 
-	InitChatroom( menu )
+	//InitChatroom( menu )
 
 	file.chatroomMenu = Hud_GetChild( menu, "ChatRoomPanel" )
 	file.chatroomMenu_chatroomWidget = Hud_GetChild( file.chatroomMenu, "ChatRoom" )
