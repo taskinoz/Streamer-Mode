@@ -15,3 +15,10 @@ RSPNVPK englishclient_mp_common.bsp.pak000_dir.vpk -s
 wait
 rm -rf ./englishclient_frontend.bsp.pak000_dir
 rm -rf ./englishclient_mp_common.bsp.pak000_dir
+
+if [ "$1" ]
+then
+  mv ./*.vpk
+  zip -r "Streamer Mode $1.zip" ./*.vpk
+  rm ./*.vpk
+fi
