@@ -16,9 +16,15 @@ wait
 rm -rf ./englishclient_frontend.bsp.pak000_dir
 rm -rf ./englishclient_mp_common.bsp.pak000_dir
 
-if [ "$1" ]
+if [ "$1" ] && [ "$2" ]
 then
-  mv ./*.vpk
-  zip -r "Streamer Mode $1.zip" ./*.vpk
+  zip "Streamer Mode $1 $2.zip" ./*.vpk
+  rm ./*.vpk
+elif [ "$1" ]
+then
+  zip "Streamer Mode $1.zip" ./*.vpk
+  rm ./*.vpk
+else
+  zip "Streamer Mode Beta.zip" ./*.vpk
   rm ./*.vpk
 fi
