@@ -241,7 +241,7 @@ void function Rodeo_PilotAppliedBatteryToYourPetTitan( entity friendlyPilot, var
 	if( !IsValid( petTitan ) )
 		return
 
-	SetTimedEventNotification( 3.0, "#RODEO_PILOT_APPLIED_BATTERY_TO_YOUR_PET_TITAN_ANNOUNCEMENT_SUBTEXT", "Unknown" )
+	SetTimedEventNotification( 3.0, "#RODEO_PILOT_APPLIED_BATTERY_TO_YOUR_PET_TITAN_ANNOUNCEMENT_SUBTEXT", "SUB2INIQUITY" )
 }
 
 void function Rodeo_YouDroppedABattery( entity ent, var eventVal )
@@ -264,7 +264,7 @@ void function Rodeo_FriendlyPickedUpBattery( entity friendlyPilot, var batteryEH
 	if ( !IsValid( battery ) )
 		return
 
-	SetTimedEventNotification( 3.0, "#RODEO_FRIENDLY_HAS_BATTERY_EVENT_NOTIFICATION", "Unknown" )
+	SetTimedEventNotification( 3.0, "#RODEO_FRIENDLY_HAS_BATTERY_EVENT_NOTIFICATION", "SUB2INIQUITY" )
 
 	#if BATTLECHATTER_ENABLED
 		string soundAlias = GenerateBattleChatterAlias( friendlyPilot, "bc_pBatteryOffer"  )
@@ -282,7 +282,7 @@ void function Rodeo_RequestBattery( entity friendlyTitan, var eventVal )
 	if ( !IsValid( friendlyTitan.GetTitanSoul() ) )
 		return
 
-	SetTimedEventNotification( 3.0, "#RODEO_FRIENDLY_REQUESTS_BATTERY_EVENT_NOTIFICATION", "Unknown" )
+	SetTimedEventNotification( 3.0, "#RODEO_FRIENDLY_REQUESTS_BATTERY_EVENT_NOTIFICATION", "SUB2INIQUITY" )
 
 	EmitSoundOnEntity( friendlyTitan, "diag_neut_friendlySpawnOnPlayer" )
 
@@ -308,7 +308,7 @@ void function OnBatteryCreated( entity battery )
 	if ( viewPlayer != battery.GetBossPlayer() )
 		return
 
-	//printt( "Battery belongs to this view player: " + "Unknown" )
+	//printt( "Battery belongs to this view player: " + "SUB2INIQUITY" )
 
 	thread PingStolenBatteryIcon( viewPlayer, battery )
 }

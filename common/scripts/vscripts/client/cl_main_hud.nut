@@ -514,7 +514,7 @@ void function RodeoAlertThink( entity cockpit, entity player )
 			if ( rider.GetTeam() == player.GetTeam() )
 			{
 				RuiSetImage( rui, "statusIcon", $"rui/hud/common/rodeo_icon_friendly" )
-				RuiSetString( rui, "playerName", "Unknown" )
+				RuiSetString( rui, "playerName", "SUB2INIQUITY" )
 				RuiSetString( rui, "statusText", Localize( "#HUD_RODEO_PASSENGER" ) )
 				RuiSetBool( rui, "isEnemy", false )
 
@@ -523,7 +523,7 @@ void function RodeoAlertThink( entity cockpit, entity player )
 			else
 			{
 				RuiSetImage( rui, "statusIcon", $"rui/hud/common/rodeo_icon_enemy" )
-				RuiSetString( rui, "playerName", "Unknown" )
+				RuiSetString( rui, "playerName", "SUB2INIQUITY" )
 				RuiSetString( rui, "statusText", Localize( "#HUD_RODEO_ALERT" ) )
 				RuiSetBool( rui, "isEnemy", true )
 
@@ -632,11 +632,11 @@ function DidUpdateRodeoRideNameAndIcon( entity cockpit, entity player, var rui )
 		RuiSetImage( rui, "statusIcon", $"rui/hud/common/rodeo_icon_friendly" )
 		string playerName
 		if ( titan.IsPlayer() )
-			playerName = "Unknown"
+			playerName = "SUB2INIQUITY"
 		else
-			playerName = "Unknown"
+			playerName = "SUB2INIQUITY"
 
-		RuiSetString( rui, "playerName", "Unknown" )
+		RuiSetString( rui, "playerName", "SUB2INIQUITY" )
 		RuiSetBool( rui, "isEnemy", false )
 
 		if ( !titan.IsPlayer() && IsMultiplayer() )
@@ -649,11 +649,11 @@ function DidUpdateRodeoRideNameAndIcon( entity cockpit, entity player, var rui )
 		RuiSetImage( rui, "statusIcon", $"rui/hud/common/rodeo_icon_enemy" )
 		string playerName
 		if ( titan.IsPlayer() )
-			playerName = "Unknown"
+			playerName = "SUB2INIQUITY"
 		else
-			playerName = "Unknown"
+			playerName = "SUB2INIQUITY"
 
-		RuiSetString( rui, "playerName", "Unknown" )
+		RuiSetString( rui, "playerName", "SUB2INIQUITY" )
 		RuiSetBool( rui, "isEnemy", true )
 
 		if ( !titan.IsPlayer() && IsMultiplayer() )
@@ -688,10 +688,10 @@ function DidUpdateRodeoRideNameAndIcon( entity cockpit, entity player, var rui )
 string function GetTitanName( entity titan )
 {
 	if ( titan.IsPlayer() )
-		return "Unknown Titan"
+		return "SUB2INIQUITY Titan"
 
 	if ( IsValid( titan.GetBossPlayer() ) )
-		return "Unknown Titan"
+		return "SUB2INIQUITY Titan"
 
 	return "Titan"
 }

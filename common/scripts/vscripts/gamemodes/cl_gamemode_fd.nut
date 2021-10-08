@@ -723,7 +723,7 @@ string function FD_CheckPlayerMoney( entity player )
 	if ( money <= 0 )
 		return " "
 
-	return Localize( "#PLAYER_CASH_HOLD_USE", minint( money, 100 ), "Unknown" )
+	return Localize( "#PLAYER_CASH_HOLD_USE", minint( money, 100 ), "SUB2INIQUITY" )
 }
 
 string function FD_BatteryPortCheckBattery( entity ent )
@@ -1572,7 +1572,7 @@ void function NotifyPlayerCanSkip_Update()
 
 void function FD_PlayerHealedHarvester( entity ent, var info )
 {
-	AnnouncementData announcement = Announcement_Create( Localize( "#FD_PLAYER_HEALED_HARVESTER", "Unknown" ) )
+	AnnouncementData announcement = Announcement_Create( Localize( "#FD_PLAYER_HEALED_HARVESTER", "SUB2INIQUITY" ) )
 	Announcement_SetStyle( announcement, ANNOUNCEMENT_STYLE_SWEEP )
 	Announcement_SetTitleColor( announcement, TEAM_COLOR_FRIENDLY )
 	Announcement_SetSoundAlias( announcement, SFX_HUD_ANNOUNCE_QUICK )
@@ -1584,7 +1584,7 @@ void function FD_PlayerHealedHarvester( entity ent, var info )
 
 void function FD_PlayerBoostedHarvesterShield( entity ent, var info )
 {
-	AnnouncementData announcement = Announcement_Create( Localize( "#FD_PLAYER_BOOSTED_SHIELD", "Unknown" ) )
+	AnnouncementData announcement = Announcement_Create( Localize( "#FD_PLAYER_BOOSTED_SHIELD", "SUB2INIQUITY" ) )
 	Announcement_SetStyle( announcement, ANNOUNCEMENT_STYLE_FD_ITEM )
 	Announcement_SetTitleColor( announcement, TEAM_COLOR_FRIENDLY )
 	Announcement_SetSoundAlias( announcement, SFX_HUD_ANNOUNCE_QUICK )
@@ -1605,37 +1605,37 @@ void function FD_TurretRepair( entity ent, var info )
 
 	if ( turretOwner == GetLocalViewPlayer() )
 	{
-		AnnouncementData announcement = Announcement_Create( Localize( "#HUD_TURRET_REPAIRED", "Unknown" ) )
+		AnnouncementData announcement = Announcement_Create( Localize( "#HUD_TURRET_REPAIRED", "SUB2INIQUITY" ) )
 		Announcement_SetStyle( announcement, ANNOUNCEMENT_STYLE_SWEEP )
 		Announcement_SetTitleColor( announcement, TEAM_COLOR_FRIENDLY )
 		Announcement_SetSoundAlias( announcement, SFX_HUD_ANNOUNCE_QUICK )
 		Announcement_SetPurge( announcement, true )
 		Announcement_SetDuration( announcement, 1.5 )
 		AnnouncementFromClass( GetLocalViewPlayer(), announcement )
-		Obituary_Print_Generic( "#HUD_TURRET_REPAIRED", "Unknown", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
+		Obituary_Print_Generic( "#HUD_TURRET_REPAIRED", "SUB2INIQUITY", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
 
 		PlayFactionDialogueOnLocalClientPlayer( "fd_turretOnline" )
 	}
 	else if ( ent != turretOwner )
 	{
-		Obituary_Print_Generic( Localize( "#HUD_TURRET_REPAIRED_OTHER", "Unknown", "Unknown" ), "", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
+		Obituary_Print_Generic( Localize( "#HUD_TURRET_REPAIRED_OTHER", "SUB2INIQUITY", "SUB2INIQUITY" ), "", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
 	}
 }
 
 void function FD_BoughtItem( entity ent, var info )
 {
 	BurnReward burnReward = BurnReward_GetById( expect int( info ) )
-	Obituary_Print_Generic( Localize( "#HUD_BOUGHT_ITEM", "Unknown", Localize( burnReward.localizedName ) ), "", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
+	Obituary_Print_Generic( Localize( "#HUD_BOUGHT_ITEM", "SUB2INIQUITY", Localize( burnReward.localizedName ) ), "", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
 }
 
 void function FD_GotMoney( entity ent, var info )
 {
-	Obituary_Print_Generic( Localize( "#HUD_GOT_MONEY", string( info ), "Unknown"  ), "", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
+	Obituary_Print_Generic( Localize( "#HUD_GOT_MONEY", string( info ), "SUB2INIQUITY"  ), "", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
 }
 
 void function FD_PlayerReady( entity ent, var info )
 {
-	Obituary_Print_Generic( "#FD_PLAYER_READY", "Unknown", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
+	Obituary_Print_Generic( "#FD_PLAYER_READY", "SUB2INIQUITY", <255, 255, 255>, OBITUARY_COLOR_FRIENDLY )
 }
 
 void function FD_StoreOpen( entity ent, var info )
@@ -2477,7 +2477,7 @@ void function ServerCallback_FD_NotifyMVP( int playerHandle )
 	if ( "FDWaveMVP" in file.waveAwardRuis )
 	{
 		var rui = file.waveAwardRuis[ "FDWaveMVP" ]
-		RuiSetString( rui, "itemText", Localize( "#SCORE_EVENT_WAVE_MVP_OTHER", "Unknown" ) )
+		RuiSetString( rui, "itemText", Localize( "#SCORE_EVENT_WAVE_MVP_OTHER", "SUB2INIQUITY" ) )
 	}
 }
 

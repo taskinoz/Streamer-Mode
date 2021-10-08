@@ -72,12 +72,12 @@ void function Speedball_EventNotification_FlagPickedUp( entity player, var event
 	}
 	else if ( team == GetLocalClientPlayer().GetTeam() )
 	{
-		string text = Localize( "#SPEEDBALL_NOTIFY_PLAYER_HAS_FLAG", "Unknown" )
+		string text = Localize( "#SPEEDBALL_NOTIFY_PLAYER_HAS_FLAG", "SUB2INIQUITY" )
 		AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_FRIENDLY )
 	}
 	else
 	{
-		string text = Localize( "#SPEEDBALL_NOTIFY_PLAYER_HAS_FLAG", "Unknown" )
+		string text = Localize( "#SPEEDBALL_NOTIFY_PLAYER_HAS_FLAG", "SUB2INIQUITY" )
 		AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_ENEMY )
 	}
 }

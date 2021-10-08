@@ -43,7 +43,7 @@ void function EventNotification( int eventID, entity ent, var eventVal )
 		//TODO: One day, go back and move all these into specific scripts, e.g. MFD EventNotifications should go into cl_gamemode_mfd
 		case eEventNotifications.BurnCardRematch:
 			if ( ent )
-				SetTimedEventNotification( 3.0, "#BURNCARD_REMATCH_WARNING", "Unknown" )
+				SetTimedEventNotification( 3.0, "#BURNCARD_REMATCH_WARNING", "SUB2INIQUITY" )
 			break
 
 		case eEventNotifications.YouveBeenSpotted:
@@ -122,7 +122,7 @@ void function EventNotification( int eventID, entity ent, var eventVal )
 					if ( IsLocalViewPlayer( attacker ) )
 					{
 						Announcement_SetSubText( announcement, "#GAMEMODE_SST_NOTIFY_DESTROYED_BY_YOU" )
-						Announcement_SetOptionalSubTextArgsArray( announcement, ["Unknown"] )
+						Announcement_SetOptionalSubTextArgsArray( announcement, ["SUB2INIQUITY"] )
 					}
 					else
 					{

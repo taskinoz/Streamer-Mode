@@ -485,7 +485,7 @@ void function Hunted_EventNotification_PlayerBecomesHunter( entity player, var e
 	}
 	else
 	{
-		string text = Localize( "#HUNTED_NOTIFY_PLAYER_IS_HUNTER", "Unknown" )
+		string text = Localize( "#HUNTED_NOTIFY_PLAYER_IS_HUNTER", "SUB2INIQUITY" )
 		AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_ENEMY )
 	}
 }
@@ -507,12 +507,12 @@ void function Hunted_EventNotification_PlayerSecuresAsset( entity player, var ev
 	{
 		if ( locPlayer.GetTeam() == TEAM_HUNTED )
 		{
-			string text = Localize( "#HUNTED_NOTIFY_PLAYER_HAS_OBJECTIVE", "Unknown" )
+			string text = Localize( "#HUNTED_NOTIFY_PLAYER_HAS_OBJECTIVE", "SUB2INIQUITY" )
 			AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_FRIENDLY )
 		}
 		else
 		{
-			string text = Localize( "#HUNTED_NOTIFY_PLAYER_HAS_OBJECTIVE", "Unknown" )
+			string text = Localize( "#HUNTED_NOTIFY_PLAYER_HAS_OBJECTIVE", "SUB2INIQUITY" )
 			AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_ENEMY )
 		}
 	}

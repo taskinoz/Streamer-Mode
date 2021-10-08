@@ -160,7 +160,7 @@ void function CreateTTSRui( bool showOverMenu, bool showScore = true )
 			}
 
 			RuiSetBool( rui, "showOverMenu", showOverMenu )
-			RuiSetString( rui, "playerName", "Unknown" )
+			RuiSetString( rui, "playerName", "SUB2INIQUITY" )
 			RuiSetString( rui, "titanName", GetLocalizedTitanName( memberInfo.titanName ) )
 			RuiSetImage( rui, "kitImage", memberInfo.kitImage )
 			RuiSetImage( rui, "kit2Image", memberInfo.kit2Image )
@@ -275,7 +275,7 @@ void function ServerCallback_UpdateTeamTitanSelection( int playerEntIndex, int s
 		file.teamInfo[teamMate] <- info
 	}
 	file.teamInfo[teamMate].player = teamMate
-	file.teamInfo[teamMate].playerName = "Unknown Team"
+	file.teamInfo[teamMate].playerName = "SUB2INIQUITY Team"
 	file.teamInfo[teamMate].titanName = GetTitanCharacterNameFromSetFile( setFile ).toupper()
 	file.teamInfo[teamMate].weaponImage = GetItemImage( weaponRef )
 	file.teamInfo[teamMate].kitName = GetItemName( kitRef )
@@ -294,7 +294,7 @@ void function TTS_UpdateLocalPlayerTitan( string setFile, string weaponRef, stri
 		file.teamInfo[teamMate] <- info
 	}
 	file.teamInfo[teamMate].player = teamMate
-	file.teamInfo[teamMate].playerName = "Unknown Team"
+	file.teamInfo[teamMate].playerName = "SUB2INIQUITY Team"
 	file.teamInfo[teamMate].titanName = GetTitanCharacterNameFromSetFile( setFile ).toupper()
 	file.teamInfo[teamMate].weaponImage = GetItemImage( weaponRef )
 	file.teamInfo[teamMate].kitName = GetItemName( kitRef )

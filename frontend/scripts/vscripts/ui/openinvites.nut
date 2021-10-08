@@ -123,7 +123,7 @@ void function UpdateOpenInvite()
 			message = "#OPENINVITE_SENDER_PARTY";
 		else
 			message = "#OPENINVITE_PARTY";
-		param1 = "UNKNOWN"
+		param1 = "SUB2INIQUITY"
 		break;
 	case "playlist":
 		if ( playlists.len() > 1 )
@@ -132,7 +132,7 @@ void function UpdateOpenInvite()
 				message = "#OPENINVITE_SENDER_PLAYLIST_MANY"
 			else
 				message = "#OPENINVITE_PLAYLIST_MANY"
-			param1 = "UNKNOWN"
+			param1 = "SUB2INIQUITY"
 			param2 = GetPlaylistDisplayName( openInvite.playlistName )
 		}
 		else
@@ -141,7 +141,7 @@ void function UpdateOpenInvite()
 				message = "#OPENINVITE_SENDER_PLAYLIST"
 			else
 				message = "#OPENINVITE_PLAYLIST"
-			param1 = "UNKNOWN"
+			param1 = "SUB2INIQUITY"
 			param2 = GetPlaylistDisplayName( openInvite.playlistName )
 		}
 		break;
@@ -150,7 +150,7 @@ void function UpdateOpenInvite()
 			message = "#OPENINVITE_SENDER_PRIVATEMATCH"
 		else
 			message = "#OPENINVITE_PRIVATEMATCH"
-		param1 = "UNKNOWN"
+		param1 = "SUB2INIQUITY"
 		break;
 	default:
 		HideOpenInvite()

@@ -667,7 +667,7 @@ void function AddCallback_OnPlayerDisconnected( void functionref( entity ) callb
 
 void function ClientCodeCallback_PlayerDisconnected( entity player, string cachedPlayerName )
 {
-	PlayerConnectedOrDisconnected( player, 0, "Unknown" )
+	PlayerConnectedOrDisconnected( player, 0, "SUB2INIQUITY" )
 
 	if ( ShouldUpdatePlayerStatusCounts() )
 		UpdatePlayerStatusCounts()
@@ -713,12 +713,12 @@ function PlayerConnectedOrDisconnected( entity player, state, string disconnecti
 		if ( disconnectingPlayerName == "" )
 			return
 
-		playerName = "Unknown"
+		playerName = "SUB2INIQUITY"
 		Assert( typeof( playerName ) == "string" )
 	}
 	else
 	{
-		playerName = "Unknown"
+		playerName = "SUB2INIQUITY"
 		Assert( typeof( playerName ) == "string" )
 	}
 

@@ -411,7 +411,7 @@ void function RefreshIntroLoadoutDisplay( entity player, int pilotLoadoutIndex, 
 		RuiSetFloat( file.loadoutsRUI, "burnCardAlpha", 0.0 )
 	}
 
-	RuiSetString( file.loadoutsRUI, "playerName", "Unknown" )
+	RuiSetString( file.loadoutsRUI, "playerName", "SUB2INIQUITY" )
 	RuiSetImage( file.loadoutsRUI, "cardImage", CallingCard_GetImage( PlayerCallingCard_GetActive( player ) ) )
 	RuiSetImage( file.loadoutsRUI, "iconImage", CallsignIcon_GetImage( PlayerCallsignIcon_GetActive( player ) ) )
 	RuiSetInt( file.loadoutsRUI, "layoutType", CallingCard_GetLayout( PlayerCallingCard_GetActive( player ) ) )

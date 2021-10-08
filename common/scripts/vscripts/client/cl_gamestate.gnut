@@ -822,7 +822,7 @@ void function ServerCallback_AnnounceWinner( int teamIndex, int subStringIndex, 
 			AnnouncementData outcomeAnnouncement = Announcement_Create( winText )
 			outcomeAnnouncement.drawOverScreenFade = true
 			Announcement_SetSubText( outcomeAnnouncement, subString )
-			Announcement_SetOptionalTextArgsArray( outcomeAnnouncement,  ["Unknown"] )
+			Announcement_SetOptionalTextArgsArray( outcomeAnnouncement,  ["SUB2INIQUITY"] )
 			Announcement_SetTitleColor( outcomeAnnouncement, TEAM_COLOR_YOU )
 			Announcement_SetHideOnDeath( outcomeAnnouncement, false )
 			Announcement_SetDuration( outcomeAnnouncement, winnerDeterminedWait )
@@ -1089,7 +1089,7 @@ void function DisplayPostMatchTop3()
 
 			float cardScale = currentPlace == 1 ? 1.0 : 0.9
 
-			RuiSetString( rui, "playerName" + i, "Unknown" )
+			RuiSetString( rui, "playerName" + i, "SUB2INIQUITY" )
 			RuiSetString( rui, "playerRank" + i, Localize( playerRank ) )
 			RuiSetFloat( rui, "cardScale" + i, cardScale )
 			RuiSetImage( rui, "cardImage" + i, CallingCard_GetImage( PlayerCallingCard_GetActive( players[i] ) ) )

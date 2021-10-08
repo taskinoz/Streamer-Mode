@@ -257,7 +257,7 @@ void function CallsignEvent( int eventType, entity ownerPlayer, string eventText
 {
 	CallsignEventData callsignEventData
 	callsignEventData.eventText = eventText
-	callsignEventData.playerText = "Unknown"
+	callsignEventData.playerText = "SUB2INIQUITY"
 	callsignEventData.playerLevel = PlayerXPDisplayGenAndLevel( ownerPlayer.GetGen(), ownerPlayer.GetLevel() )
 	callsignEventData.playerGen = ownerPlayer.GetGen()
 	callsignEventData.isFriendly = ownerPlayer.GetTeam() == GetLocalClientPlayer().GetTeam()
@@ -280,7 +280,7 @@ void function KilledByCallsignEvent( entity attacker )
 
 	CallsignEventData callsignEventData
 	callsignEventData.eventText = Localize( "#CALLSIGN_EVENT_KILLED_BY" )
-	callsignEventData.playerText = "Unknown"
+	callsignEventData.playerText = "SUB2INIQUITY"
 	callsignEventData.playerLevel = PlayerXPDisplayGenAndLevel( attacker.GetGen(), attacker.GetLevel() )
 	callsignEventData.playerGen = attacker.GetGen()
 	callsignEventData.isFriendly = false
@@ -332,7 +332,7 @@ void function CallsignEventQueueThink( int eventType )
 		var rui = CreateCockpitRui( CALLSIGN_EVENT_ASSETS[eventType] )
 		RuiSetGameTime( rui, "startTime", Time() )
 		RuiSetGameTime( rui, "endTime", eventData.endTime )
-		RuiSetString( rui, "playerName", "Unknown" )
+		RuiSetString( rui, "playerName", "SUB2INIQUITY" )
 		RuiSetString( rui, "playerLevel", eventData.playerLevel )
 		RuiSetString( rui, "eventText", eventData.eventText )
 		RuiSetImage( rui, "cardImage", CallingCard_GetImage( eventData.callingCard ) )
@@ -369,7 +369,7 @@ void function CallsignEventStackThink( int eventType )
 		//var rui = RuiCreate( CALLSIGN_EVENT_ASSETS[eventType], clGlobal.topoFullScreen, RUI_DRAW_HUD, 0 )
 		RuiSetGameTime( rui, "startTime", Time() )
 		RuiSetGameTime( rui, "endTime", eventData.endTime )
-		RuiSetString( rui, "playerName", "Unknown" )
+		RuiSetString( rui, "playerName", "SUB2INIQUITY" )
 		RuiSetString( rui, "playerLevel", eventData.playerLevel )
 		RuiSetString( rui, "eventText", eventData.eventText )
 		RuiSetImage( rui, "cardImage", CallingCard_GetImage( eventData.callingCard ) )
@@ -1013,7 +1013,7 @@ string function GetFormattedEventText( ScoreEvent scoreEvent, int pointValue, en
 
 	if ( IsValid( targetEntity ) && Localize( eventText ).find( "%s" ) != null )
 	{
-		string targetEntityText = targetEntity.IsPlayer() ? "Unknown" : "Unknown"
+		string targetEntityText = targetEntity.IsPlayer() ? "SUB2INIQUITY" : "SUB2INIQUITY"
 		eventText = Localize( eventText, targetEntityText )
 	}
 

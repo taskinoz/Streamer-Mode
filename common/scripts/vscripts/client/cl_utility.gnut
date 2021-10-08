@@ -404,7 +404,7 @@ entity function CreateScriptRef( origin = null, angles = null )
 
 string function GetComputerName( entity player )
 {
-	string name = "Unknown"
+	string name = "SUB2INIQUITY"
 	array<string> msg = split( name, " " )
 	if ( msg.len() < 2 )
 		return ""

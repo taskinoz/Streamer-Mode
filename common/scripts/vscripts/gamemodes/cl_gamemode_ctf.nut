@@ -242,9 +242,9 @@ function UpdateFriendlyFlag( entity player, entity flagEnt, newFlagState, newEne
 			}
 			break
 		case eFlagState.Held:
-			player.s.friendlyFlagCarrierName = "Unknown"
+			player.s.friendlyFlagCarrierName = "SUB2INIQUITY"
 			file.ctfFlags = file.ctfFlags | CTFF_ENEMY_HAS_FLAG
-			RuiSetString( ClGameState_GetRui(), "enemyCarrierName", "Unknown" )
+			RuiSetString( ClGameState_GetRui(), "enemyCarrierName", "SUB2INIQUITY" )
 			break
 		case eFlagState.Away:
 			file.ctfFlags = file.ctfFlags | CTFF_ENEMY_DROPPED_FLAG
@@ -287,12 +287,12 @@ function UpdateEnemyFlag( entity player, entity flagEnt, newFlagState )
 			break
 
 		case eFlagState.Held:
-			player.s.enemyFlagCarrierName = "Unknown"
+			player.s.enemyFlagCarrierName = "SUB2INIQUITY"
 			if ( flagEnt.GetParent() == player )
 				file.ctfFlags = file.ctfFlags | CTFF_PLAYER_HAS_FLAG
 
 			file.ctfFlags = file.ctfFlags | CTFF_FRIENDLY_HAS_FLAG
-			RuiSetString( ClGameState_GetRui(), "friendlyCarrierName", "Unknown" )
+			RuiSetString( ClGameState_GetRui(), "friendlyCarrierName", "SUB2INIQUITY" )
 			break
 	}
 
@@ -423,37 +423,37 @@ void function ClCaptureTheFlag_EventNotification_YouCapturedTheEnemyFlag( entity
 //void function ClCaptureTheFlag_EventNotification_PlayerHasEnemyFlag( entity player, var eventVal = null ) //
 void function ClCaptureTheFlag_EventNotification_PlayerHasEnemyFlag( entity player, var eventVal )
 {
-	string text = Localize( "#GAMEMODE_PLAYER_HAS_ENEMY_FLAG", "Unknown" )
+	string text = Localize( "#GAMEMODE_PLAYER_HAS_ENEMY_FLAG", "SUB2INIQUITY" )
 	AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_FRIENDLY )
 }
 
 void function ClCaptureTheFlag_EventNotification_PlayerCapturedEnemyFlag( entity player, var eventVal )
 {
-	string text = Localize( "#GAMEMODE_PLAYER_CAPTURED_ENEMY_FLAG", "Unknown" )
+	string text = Localize( "#GAMEMODE_PLAYER_CAPTURED_ENEMY_FLAG", "SUB2INIQUITY" )
 	AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_ENEMY )
 }
 
 void function ClCaptureTheFlag_EventNotification_PlayerReturnedEnemyFlag( entity player, var eventVal )
 {
-	string text = Localize( "#GAMEMODE_PLAYER_RETURNED_ENEMY_FLAG", "Unknown" )
+	string text = Localize( "#GAMEMODE_PLAYER_RETURNED_ENEMY_FLAG", "SUB2INIQUITY" )
 	AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_ENEMY )
 }
 
 void function ClCaptureTheFlag_EventNotification_PlayerDroppedEnemyFlag( entity player, var eventVal )
 {
-	string text = Localize( "#GAMEMODE_PLAYER_DROPPED_ENEMY_FLAG", "Unknown" )
+	string text = Localize( "#GAMEMODE_PLAYER_DROPPED_ENEMY_FLAG", "SUB2INIQUITY" )
 	AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_FRIENDLY )
 }
 
 void function ClCaptureTheFlag_EventNotification_PlayerHasFriendlyFlag( entity player, var eventVal )
 {
-	string text = Localize( "#GAMEMODE_PLAYER_HAS_FRIENDLY_FLAG", "Unknown" )
+	string text = Localize( "#GAMEMODE_PLAYER_HAS_FRIENDLY_FLAG", "SUB2INIQUITY" )
 	AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_ENEMY )
 }
 
 void function ClCaptureTheFlag_EventNotification_PlayerCapturedFriendlyFlag( entity player, var eventVal )
 {
-	string text = Localize( "#GAMEMODE_PLAYER_CAPTURED_FRIENDLY_FLAG", "Unknown" )
+	string text = Localize( "#GAMEMODE_PLAYER_CAPTURED_FRIENDLY_FLAG", "SUB2INIQUITY" )
 	AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_ENEMY )
 }
 
@@ -461,7 +461,7 @@ void function ClCaptureTheFlag_EventNotification_PlayerReturnedFriendlyFlag( ent
 {
 	if ( player != GetLocalViewPlayer() )
 	{
-		string text = Localize( "#GAMEMODE_PLAYER_RETURNED_FRIENDLY_FLAG", "Unknown" )
+		string text = Localize( "#GAMEMODE_PLAYER_RETURNED_FRIENDLY_FLAG", "SUB2INIQUITY" )
 		AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_FRIENDLY )
 	}
 
@@ -469,7 +469,7 @@ void function ClCaptureTheFlag_EventNotification_PlayerReturnedFriendlyFlag( ent
 
 void function ClCaptureTheFlag_EventNotification_PlayerDroppedFriendlyFlag( entity player, var eventVal )
 {
-	string text = Localize( "#GAMEMODE_PLAYER_DROPPED_FRIENDLY_FLAG", "Unknown" )
+	string text = Localize( "#GAMEMODE_PLAYER_DROPPED_FRIENDLY_FLAG", "SUB2INIQUITY" )
 	AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_FRIENDLY )
 }
 
@@ -477,7 +477,7 @@ void function ClCaptureTheFlag_EventNotification_ReturnedFriendlyFlag( entity pl
 {
 	if ( IsValid( player ) )
 	{
-		string text = Localize( "#GAMEMODE_RETURNED_FRIENDLY_FLAG", "Unknown" )
+		string text = Localize( "#GAMEMODE_RETURNED_FRIENDLY_FLAG", "SUB2INIQUITY" )
 		AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_FRIENDLY )
 	}
 }
@@ -486,7 +486,7 @@ void function ClCaptureTheFlag_EventNotification_ReturnedEnemyFlag( entity playe
 {
 	if ( IsValid( player ) )
 	{
-		string text = Localize( "#GAMEMODE_RETURNED_ENEMY_FLAG", "Unknown" )
+		string text = Localize( "#GAMEMODE_RETURNED_ENEMY_FLAG", "SUB2INIQUITY" )
 		AnnouncementMessageSweep( GetLocalClientPlayer(), text, "", TEAM_COLOR_ENEMY )
 	}
 }

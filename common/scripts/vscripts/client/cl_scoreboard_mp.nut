@@ -561,7 +561,7 @@ void function ShowScoreboardMP()
 				// Update player level number
 
 				// Update player name and color
-				string name = "Unknown"
+				string name = "SUB2INIQUITY"
 				if ( player.HasBadReputation() )
 					name = "* " + name
 

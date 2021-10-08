@@ -55,7 +55,7 @@ function UpdateVoiceHUD()
 				{
 					localPlayer.cv.voiceHUDArray[index].mic.Show()
 
-					localPlayer.cv.voiceHUDArray[index].name.SetText( "Unknown" )
+					localPlayer.cv.voiceHUDArray[index].name.SetText( "SUB2INIQUITY" )
 					localPlayer.cv.voiceHUDArray[index].name.Show()
 
 					index++

@@ -56,7 +56,7 @@ void function UpdateSpectatorHud( entity player, entity currentTarget )
 		return
 	}
 
-	string playerName = "Unknown"
+	string playerName = "SUB2INIQUITY"
 
 	RuiSetFloat( file.spectatorHud, "shouldShowPlayerSpectatingText", 1.0  )
 

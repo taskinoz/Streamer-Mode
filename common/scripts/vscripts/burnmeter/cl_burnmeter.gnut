@@ -40,9 +40,9 @@ void function ClBurnMeter_RadarJammerUsed( entity activatingPlayer, var eventVal
 {
 	entity localViewPlayer = GetLocalViewPlayer()
 	if ( activatingPlayer == localViewPlayer )
-		SetTimedEventNotification( 3.0, "#BURNMETER_RADAR_JAMMER_USED_EVENT_NOTIFICATION", "Unknown" )
+		SetTimedEventNotification( 3.0, "#BURNMETER_RADAR_JAMMER_USED_EVENT_NOTIFICATION", "SUB2INIQUITY" )
 	else if ( activatingPlayer.GetTeam() ==  localViewPlayer.GetTeam() )
-		SetTimedEventNotification( 3.0, "#BURNMETER_FRIENDLY_RADAR_JAMMER_USED_EVENT_NOTIFICATION", "Unknown" )
+		SetTimedEventNotification( 3.0, "#BURNMETER_FRIENDLY_RADAR_JAMMER_USED_EVENT_NOTIFICATION", "SUB2INIQUITY" )
 	else
 		SetTimedEventNotification( 3.0, "#BURNMETER_ENEMY_RADAR_JAMMER_USED_EVENT_NOTIFICATION" )
 }

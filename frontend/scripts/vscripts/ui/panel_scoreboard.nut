@@ -176,7 +176,7 @@ void function UpdateRowsForTeam( postGameDataDef matchData, postGameTeamDef team
 			Hud_SetEnabled( row, true )
 			RuiSetBool( rui, "isVisible", true )
 			RuiSetBool( rui, "isEmpty", false )
-			RuiSetString( rui, "playerName", "Unknown" )
+			RuiSetString( rui, "playerName", "SUB2INIQUITY" )
 
 			if ( teamData.playersData[i].xuid == matchData.myXuid )
 				RuiSetInt( rui, "relationship", 0 )
@@ -192,7 +192,7 @@ void function UpdateRowsForTeam( postGameDataDef matchData, postGameTeamDef team
 				RuiSetInt( rui, scoreArgs[scoreIndex], score )
 
 			file.buttonXuids[ row ] <- teamData.playersData[i].xuid
-			file.buttonNames[ row ] <- "Unknown"
+			file.buttonNames[ row ] <- "SUB2INIQUITY"
 		}
 		else if ( i < teamData.maxTeamSize ) // empty row
 		{

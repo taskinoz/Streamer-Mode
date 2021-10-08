@@ -411,7 +411,7 @@ function DelayPlayingUnmarkedEffect( entity player )
 
 string function GetMarkedName( entity marked )
 {
-	return marked.IsNPC() ? "Titan(" + "Unknown" + ")" : "Unknown"
+	return marked.IsNPC() ? "Titan(" + "SUB2INIQUITY" + ")" : "SUB2INIQUITY"
 }
 
 void function ServerCallback_MFD_StartNewMarkCountdown( float endTime )

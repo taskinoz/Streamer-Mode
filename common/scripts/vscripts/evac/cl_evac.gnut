@@ -210,7 +210,7 @@ function ServerCallback_EvacObit( playerEHandle )
 	if ( !pilot.IsPlayer() )
 		return
 
-	string pilotName = "Unknown"
+	string pilotName = "SUB2INIQUITY"
 	vector pilotNameColor = OBITUARY_COLOR_ENEMY
 	if ( pilot.GetTeam() == GetLocalViewPlayer().GetTeam() )
 		pilotNameColor = OBITUARY_COLOR_FRIENDLY
