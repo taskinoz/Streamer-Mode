@@ -74,7 +74,7 @@ void function OnMainMenu_Open()
 	TryUnlockCollectiblesAchievement()
 	TryUnlockCompletedGameAchievements()
 
-	Hud_SetText( file.versionDisplay, "Streamer Mode Beta 7\nEnhanced v1.10\nBuild "+GetPublicGameVersion() )
+	Hud_SetText( file.versionDisplay, "SUB2INIQUITY\nStreamer Mode Beta 7\nEnhanced v1.13\nBuild "+GetPublicGameVersion() )
 	Hud_Show( file.versionDisplay )
 
 	thread UpdateTrialLabel()
